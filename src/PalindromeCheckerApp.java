@@ -1,6 +1,7 @@
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Stack;
+import java.util.Deque;
 
 
 
@@ -10,38 +11,37 @@ public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
 
+        // Original string
+        String word = "madam";
 
-            // Original string
-            String word = "madam";
+        // Create Deque
+        Deque<Character> deque = new LinkedList<>();
 
-            // Create Queue and Stack
-            Queue<Character> queue = new LinkedList<>();
-            Stack<Character> stack = new Stack<>();
-
-            // Insert characters into both data structures
-            for(int i = 0; i < word.length(); i++) {
-                char ch = word.charAt(i);
-                queue.add(ch);   // Enqueue
-                stack.push(ch);  // Push
-            }
-
-            boolean isPalindrome = true;
-
-            // Compare dequeue and pop results
-            while(!queue.isEmpty()) {
-                if(queue.remove() != stack.pop()) {
-                    isPalindrome = false;
-                    break;
-                }
-            }
-
-            // Print result
-            if(isPalindrome) {
-                System.out.println(word + " is a Palindrome");
-            }
-            else {
-                System.out.println(word + " is NOT a Palindrome");
-            }
-
+        // Insert characters into deque
+        for(int i = 0; i < word.length(); i++) {
+            deque.addLast(word.charAt(i));
         }
+
+        boolean isPalindrome = true;
+
+        // Compare front and rear characters
+        while(deque.size() > 1) {
+            char first = deque.removeFirst();
+            char last = deque.removeLast();
+
+            if(first != last) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        // Print result
+        if(isPalindrome) {
+            System.out.println(word + " is a Palindrome");
+        }
+        else {
+            System.out.println(word + " is NOT a Palindrome");
+        }
+
+    }
 }
